@@ -75,6 +75,19 @@ Status add_to_start(List_ptr list, int value)
   return Success;
 }
 
+Status remove_from_start(List_ptr list)
+{
+  if (list->head == NULL)
+  {
+    return Failure;
+  }
+
+  Node_ptr temp = list->head->next;
+  free(list->head);
+  list->head = temp;
+  return Success;
+}
+
 Status clear_list(List_ptr list)
 {
   Node_ptr walker = list->head;
