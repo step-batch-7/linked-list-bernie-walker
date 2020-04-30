@@ -59,3 +59,26 @@ Status add_to_end(List_ptr list, int value)
   ++list->count;
   return Success;
 }
+
+Status clear_list(List_ptr list)
+{
+  Node_ptr walker = list->head;
+
+  while (walker != NULL)
+  {
+    Node_ptr temp = walker->next;
+    free(walker);
+    walker = temp;
+  }
+
+  list->head = NULL;
+  list->last = NULL;
+  list->count = 0;
+  return Success;
+}
+
+void destroy_list(List_ptr list)
+{
+  clear_list(list);
+  free(list);
+}
