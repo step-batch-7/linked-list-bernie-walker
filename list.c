@@ -107,15 +107,15 @@ Status insert_at(List_ptr list, int value, int position)
     return add_to_end(list, value);
   }
 
-  Node_ptr node_before_n = get_nth_node(list, (position - 1));
-  if (node_before_n == NULL)
+  Node_ptr node_before_position = get_nth_node(list, (position - 1));
+  if (node_before_position == NULL)
   {
     return Failure;
   }
 
   Node_ptr new_node = create_node(value);
-  new_node->next = node_before_n->next;
-  node_before_n->next = new_node;
+  new_node->next = node_before_position->next;
+  node_before_position->next = new_node;
 
   return Success;
 }
@@ -140,6 +140,25 @@ Status remove_from_start(List_ptr list)
   Node_ptr temp = list->head->next;
   free(list->head);
   list->head = temp;
+  return Success;
+}
+
+Status remove_at(List_ptr list, int position)
+{
+  if (position == 0)
+  {
+    return remove_from_start(list);
+  }
+
+  Node_ptr node_before_position = get_nth_node(list, (position - 1));
+  if ((node_before_position == NULL) || (node_before_position->next == NULL))
+  {
+    return Failure;
+  }
+
+  Node_ptr temp = node_before_position->next;
+  node_before_position->next = temp->next;
+  free(temp);
   return Success;
 }
 

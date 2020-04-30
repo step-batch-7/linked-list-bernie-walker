@@ -40,8 +40,8 @@ Status insert_at(List_ptr, int, int);
 Status add_unique(List_ptr, int);
 
 Status remove_from_start(List_ptr);
+Status remove_at(List_ptr, int);
 Status remove_from_end(List_ptr);
-Status remove_at(List_ptr, int position);
 
 Status remove_first_occurrence(List_ptr, int value);
 Status remove_all_occurrences(List_ptr, int value);
