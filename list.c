@@ -116,6 +116,7 @@ Status insert_at(List_ptr list, int value, int position)
   Node_ptr new_node = create_node(value);
   new_node->next = node_before_position->next;
   node_before_position->next = new_node;
+  ++list->count;
 
   return Success;
 }
@@ -140,6 +141,7 @@ Status remove_from_start(List_ptr list)
   Node_ptr temp = list->head->next;
   free(list->head);
   list->head = temp;
+  --list->count;
   return Success;
 }
 
@@ -159,7 +161,13 @@ Status remove_at(List_ptr list, int position)
   Node_ptr temp = node_before_position->next;
   node_before_position->next = temp->next;
   free(temp);
+  --list->count;
   return Success;
+}
+
+Status remove_from_end(List_ptr list)
+{
+  return remove_at(list, (list->count - 1));
 }
 
 Status clear_list(List_ptr list)
