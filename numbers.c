@@ -2,8 +2,9 @@
 #include "list.h"
 
 #define MENU "Main Menu\n---------\n\
-(m) exit\n\nPlease enter the alphabet of the operation you would like to perform\n\n"
-// (a) add a number to the end of the list\n\
+(a) add a number to the end of the list\n\
+(l) display the list of numbers\n\
+(m) exit\n\nPlease enter the alphabet of the operation you would like to perform\n"
 // (b) add a number to the start of the list\n\
 // (c) insert a number at a given position in the list\n\
 // (d) add a unique item on the list at the end\n\
@@ -14,13 +15,60 @@
 // (i) remove all occurrences of a number\n\
 // (j) clear the whole list\n\
 // (k) check if a number exists in the list\n\
-// (l) display the list of numbers\n\
 
+#define FAILED printf("Operation Not Successful wrong input or memory exhausted\n")
+#define WRONG_OP printf("Invalid Option\n")
+
+int get_user_in(char[]);
+void push_element(List_ptr);
+void perform_operation(List_ptr, char);
 char get_user_option(void);
+
+int get_user_in(char message[])
+{
+  int user_in;
+  printf("%s\n", message);
+  scanf("%d", &user_in);
+  return user_in;
+}
+
+void push_element(List_ptr list)
+{
+  int element = get_user_in("Please enter the element to add");
+  Status stat = add_to_end(list, element);
+
+  if (stat != 0)
+  {
+    FAILED;
+    return;
+  }
+
+  printf("Element successfully added\n");
+}
+
+void perform_operation(List_ptr list, char opcode)
+{
+  switch (opcode)
+  {
+  case 'a':
+    push_element(list);
+    break;
+
+  case 'l':
+    display(list);
+    break;
+
+  default:
+    WRONG_OP;
+    break;
+  }
+}
 
 char get_user_option(void)
 {
+  NEW_LINE;
   printf("%s", MENU);
+  NEW_LINE;
   fflush(stdin);
   return getchar();
 }
@@ -33,11 +81,12 @@ int main(void)
   while (user_option != 'm')
   {
     system("clear");
-    printf("operation happened\n\n");
+    perform_operation(user_list, user_option);
     user_option = get_user_option();
   }
 
-  printf("Exiting...\n");
+  printf("Exiting...");
+  NEW_LINE;
 
   return 0;
 }

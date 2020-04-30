@@ -1,12 +1,14 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 #ifndef __LIST_H
 #define __LIST_H
+#define NEW_LINE printf("\n");
 
 typedef enum
 {
-  Failure,
-  Success
+  Success,
+  Failure
 } Status;
 
 typedef struct node
@@ -31,7 +33,7 @@ List_ptr create_list(void);
 
 void display(List_ptr);
 
-Status add_to_end(List_ptr, int value);
+Status add_to_end(List_ptr, int);
 Status add_to_start(List_ptr, int value);
 Status insert_at(List_ptr, int value, int position);
 Status add_unique(List_ptr, int value);
