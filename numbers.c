@@ -18,6 +18,7 @@
 
 int main(void)
 {
+  List_ptr user_list = create_list();
   printf("%s", MENU);
   return 0;
 }
