@@ -3,10 +3,10 @@
 
 #define MENU "Main Menu\n---------\n\
 (a) add a number to the end of the list\n\
+(b) add a number to the start of the list\n\
 (j) clear the whole list\n\
 (l) display the list of numbers\n\
 (m) exit\n\nPlease enter the alphabet of the operation you would like to perform\n"
-// (b) add a number to the start of the list\n\
 // (c) insert a number at a given position in the list\n\
 // (d) add a unique item on the list at the end\n\
 // (e) remove a number from the beginning of the list\n\
@@ -20,7 +20,7 @@
 #define WRONG_OP printf("Invalid Option\n")
 
 int get_user_in(char[]);
-void push_element(List_ptr);
+void push_element(List_ptr, Status (*)());
 void perform_operation(List_ptr, char);
 char get_user_option(void);
 
@@ -32,10 +32,10 @@ int get_user_in(char message[])
   return user_in;
 }
 
-void push_element(List_ptr list)
+void add_element(List_ptr list, Status (*adder)(List_ptr, int))
 {
   int element = get_user_in("Please enter the element to add");
-  Status stat = add_to_end(list, element);
+  Status stat = adder(list, element);
 
   if (stat != 0)
   {
@@ -51,7 +51,11 @@ void perform_operation(List_ptr list, char opcode)
   switch (opcode)
   {
   case 'a':
-    push_element(list);
+    add_element(list, add_to_end);
+    break;
+
+  case 'b':
+    add_element(list, add_to_start);
     break;
 
   case 'j':

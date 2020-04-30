@@ -60,6 +60,21 @@ Status add_to_end(List_ptr list, int value)
   return Success;
 }
 
+Status add_to_start(List_ptr list, int value)
+{
+  Node_ptr new_node = create_node(value);
+
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
+
+  new_node->next = list->head;
+  list->head = new_node;
+  ++list->count;
+  return Success;
+}
+
 Status clear_list(List_ptr list)
 {
   Node_ptr walker = list->head;
