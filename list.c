@@ -23,6 +23,25 @@ List_ptr create_list(void)
   return new_list;
 }
 
+Node_ptr get_nth_node(List_ptr list, int position)
+{
+  Node_ptr walker = list->head;
+  int index = 0;
+
+  if ((position > list->count) || (position < 0))
+  {
+    return NULL;
+  }
+
+  while ((walker != NULL) && (index != position))
+  {
+    walker = walker->next;
+    ++index;
+  }
+
+  return walker;
+}
+
 void display(List_ptr list)
 {
   Node_ptr walker = list->head;
@@ -73,6 +92,31 @@ Status add_to_start(List_ptr list, int value)
   new_node->next = list->head;
   list->head = new_node;
   ++list->count;
+  return Success;
+}
+
+Status insert_at(List_ptr list, int value, int position)
+{
+  if (position == 0)
+  {
+    return add_to_start(list, value);
+  }
+
+  if (position == list->count)
+  {
+    return add_to_end(list, value);
+  }
+
+  Node_ptr node_before_n = get_nth_node(list, (position - 1));
+  if (node_before_n == NULL)
+  {
+    return Failure;
+  }
+
+  Node_ptr new_node = create_node(value);
+  new_node->next = node_before_n->next;
+  node_before_n->next = new_node;
+
   return Success;
 }
 

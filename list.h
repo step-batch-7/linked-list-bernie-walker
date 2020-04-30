@@ -30,13 +30,14 @@ typedef List *List_ptr;
 
 Node_ptr create_node(int);
 List_ptr create_list(void);
+Node_ptr get_nth_node(List_ptr, int);
 
 void display(List_ptr);
 
 Status add_to_end(List_ptr, int);
-Status add_to_start(List_ptr, int value);
-Status insert_at(List_ptr, int value, int position);
-Status add_unique(List_ptr, int value);
+Status add_to_start(List_ptr, int);
+Status insert_at(List_ptr, int, int);
+Status add_unique(List_ptr, int);
 
 Status remove_from_start(List_ptr);
 Status remove_from_end(List_ptr);
