@@ -10,7 +10,7 @@ Main Menu
 (a) add a number to the end of the list
 (b) add a number to the start of the list
 (c) insert a number at a given position in the list
-(d) add a unique item on the list at the end(if it alreay exists, do not insert)
+(d) add a unique item on the list at the end(if it already exists, do not insert)
 (e) remove a number from the beginning of the list
 (f) remove a number from the end of the list
 (g) remove a number from a given position in the list
