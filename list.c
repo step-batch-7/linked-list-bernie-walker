@@ -152,7 +152,7 @@ Status remove_at(List_ptr list, int position)
   }
 
   Node_ptr node_before_position = position < list->count ? get_nth_node(list, (position - 1)) : NULL;
-  if ((node_before_position == NULL))
+  if (node_before_position == NULL)
   {
     return Failure;
   }
@@ -167,6 +167,39 @@ Status remove_at(List_ptr list, int position)
 Status remove_from_end(List_ptr list)
 {
   return remove_at(list, (list->count - 1));
+}
+
+Status remove_first_occurrence(List_ptr list, int number)
+{
+  Node_ptr walker = list->head;
+
+  if (walker == NULL)
+  {
+    return Failure;
+  }
+
+  if (walker->value == number)
+  {
+    return remove_from_start(list);
+  }
+
+  while (walker->next != NULL)
+  {
+
+    if (walker->next->value != number)
+    {
+      walker = walker->next;
+      continue;
+    }
+
+    Node_ptr temp = walker->next->next;
+    free(walker->next);
+    walker->next = temp;
+    --list->count;
+    return Success;
+  }
+
+  return Failure;
 }
 
 Status clear_list(List_ptr list)

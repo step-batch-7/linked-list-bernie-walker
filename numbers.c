@@ -9,17 +9,20 @@
 (e) remove a number from the beginning of the list\n\
 (f) remove a number from the end of the list\n\
 (g) remove a number from a given position in the list\n\
+(h) remove first occurrence of a number\n\
 (j) clear the whole list\n\
 (l) display the list of numbers\n\
 (m) exit\n\nPlease enter the alphabet of the operation you would like to perform\n"
-// (h) remove first occurrence of a number\n\
 // (i) remove all occurrences of a number\n\
 // (k) check if a number exists in the list\n\
 
 #define FAILED printf("Operation Not Successful wrong input or memory exhausted\n")
+#define ADDED printf("Element successfully added\n");
+#define REMOVED printf("Element successfully removed\n");
 #define WRONG_OP printf("Invalid Option\n")
 
 int get_user_in(char[]);
+void remove_occurrences(List_ptr, Status (*)());
 void remove_element_from(List_ptr);
 void add_element_at(List_ptr);
 void remove_element(List_ptr, Status (*)());
@@ -31,8 +34,23 @@ int get_user_in(char message[])
 {
   int user_in;
   printf("%s\n", message);
+  fflush(stdin);
   scanf("%d", &user_in);
   return user_in;
+}
+
+void remove_occurrences(List_ptr list, Status (*remover)(List_ptr, int))
+{
+  int number = get_user_in("Please enter the number you want to remove");
+  Status stat = remover(list, number);
+
+  if (stat != 0)
+  {
+    FAILED;
+    return;
+  }
+
+  REMOVED;
 }
 
 void remove_element_from(List_ptr list)
@@ -46,7 +64,7 @@ void remove_element_from(List_ptr list)
     return;
   }
 
-  printf("Element successfully removed\n");
+  REMOVED;
 }
 
 void add_element_at(List_ptr list)
@@ -61,7 +79,7 @@ void add_element_at(List_ptr list)
     return;
   }
 
-  printf("Element successfully added\n");
+  ADDED;
 }
 
 void remove_element(List_ptr list, Status (*remover)(List_ptr))
@@ -74,7 +92,7 @@ void remove_element(List_ptr list, Status (*remover)(List_ptr))
     return;
   }
 
-  printf("Element successfully removed\n");
+  REMOVED;
 }
 
 void add_element(List_ptr list, Status (*adder)(List_ptr, int))
@@ -88,7 +106,7 @@ void add_element(List_ptr list, Status (*adder)(List_ptr, int))
     return;
   }
 
-  printf("Element successfully added\n");
+  ADDED;
 }
 
 void perform_operation(List_ptr list, char opcode)
@@ -121,6 +139,10 @@ void perform_operation(List_ptr list, char opcode)
 
   case 'g':
     remove_element_from(list);
+    break;
+
+  case 'h':
+    remove_occurrences(list, remove_first_occurrence);
     break;
 
   case 'j':
