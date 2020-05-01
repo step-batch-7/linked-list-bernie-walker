@@ -141,6 +141,12 @@ Status remove_from_start(List_ptr list)
   free(list->head);
   list->head = temp;
   --list->count;
+
+  if (list->count == 0)
+  {
+    list->last = NULL;
+  }
+
   return Success;
 }
 
@@ -161,10 +167,12 @@ Status remove_at(List_ptr list, int position)
   node_before_position->next = temp->next;
   free(temp);
   --list->count;
+
   if (list->count == position)
   {
     list->last = node_before_position;
   }
+
   return Success;
 }
 
@@ -219,7 +227,6 @@ Status remove_first_occurrence(List_ptr list, int number)
     {
       list->last = walker;
     }
-
     return Success;
   }
 
