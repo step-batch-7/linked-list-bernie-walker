@@ -211,6 +211,41 @@ Status remove_first_occurrence(List_ptr list, int number)
   return Failure;
 }
 
+Status remove_all_occurrences(List_ptr list, int number)
+{
+  Status stat = Failure;
+  Node_ptr walker = list->head;
+
+  if (walker == NULL)
+  {
+    return Failure;
+  }
+
+  if (walker->value == number)
+  {
+    stat = remove_from_start(list);
+    walker = list->head;
+  }
+
+  while (walker->next != NULL)
+  {
+    if (walker->next->value != number)
+    {
+      walker = walker->next;
+      continue;
+    }
+
+    Node_ptr temp = walker->next->next;
+    free(walker->next);
+    walker->next = temp;
+    --list->count;
+    stat = Success;
+  }
+  list->last = walker;
+
+  return stat;
+}
+
 Status clear_list(List_ptr list)
 {
   Node_ptr walker = list->head;
