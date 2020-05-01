@@ -20,7 +20,7 @@
 #define WRONG_OP printf("Invalid Option\n")
 
 int get_user_in(char[]);
-void remove_element_at(List_ptr);
+void remove_element_from(List_ptr);
 void add_element_at(List_ptr);
 void remove_element(List_ptr, Status (*)());
 void push_element(List_ptr, Status (*)());
@@ -35,7 +35,7 @@ int get_user_in(char message[])
   return user_in;
 }
 
-void remove_element_at(List_ptr list)
+void remove_element_from(List_ptr list)
 {
   int position = get_user_in("Please enter the position you want to remove the element from");
   Status stat = remove_at(list, position);
@@ -120,7 +120,7 @@ void perform_operation(List_ptr list, char opcode)
     break;
 
   case 'g':
-    remove_element_at(list);
+    remove_element_from(list);
     break;
 
   case 'j':

@@ -28,7 +28,7 @@ Node_ptr get_nth_node(List_ptr list, int position)
   Node_ptr walker = list->head;
   int index = 0;
 
-  if ((position > list->count) || (position < 0))
+  if ((position >= list->count) || (position < 0))
   {
     return NULL;
   }
@@ -80,7 +80,6 @@ Status add_to_end(List_ptr list, int value)
 }
 
 Status add_to_start(List_ptr list, int value)
-
 {
   Node_ptr new_node = create_node(value);
 
@@ -152,8 +151,8 @@ Status remove_at(List_ptr list, int position)
     return remove_from_start(list);
   }
 
-  Node_ptr node_before_position = get_nth_node(list, (position - 1));
-  if ((node_before_position == NULL) || (node_before_position->next == NULL))
+  Node_ptr node_before_position = position < list->count ? get_nth_node(list, (position - 1)) : NULL;
+  if ((node_before_position == NULL))
   {
     return Failure;
   }
