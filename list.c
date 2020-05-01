@@ -198,35 +198,39 @@ Status has_element(List_ptr list, int number)
 
 Status remove_first_occurrence(List_ptr list, int number)
 {
-  Node_ptr walker = list->head;
+  Node_ptr previous = list->head;
 
-  if (walker == NULL)
+  if (previous == NULL)
   {
     return Failure;
   }
 
-  if (walker->value == number)
+  if (previous->value == number)
   {
     return remove_from_start(list);
   }
 
-  while (walker->next != NULL)
+  Node_ptr current = previous->next;
+
+  while (current != NULL)
   {
 
-    if (walker->next->value != number)
+    if (current->value != number)
     {
-      walker = walker->next;
+      previous = current;
+      current = current->next;
       continue;
     }
 
-    Node_ptr temp = walker->next->next;
-    free(walker->next);
-    walker->next = temp;
+    previous->next = current->next;
+    free(current);
     --list->count;
-    if (walker->next == NULL)
+
+    if (previous->next == NULL)
     {
-      list->last = walker;
+      list->last = previous;
     }
+
     return Success;
   }
 
