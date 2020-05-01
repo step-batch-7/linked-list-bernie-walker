@@ -185,11 +185,13 @@ void perform_operation(List_ptr list, char opcode)
 
 char get_user_option(void)
 {
+  char option, terminator;
   NEW_LINE;
   printf("%s", MENU);
   NEW_LINE;
   fflush(stdin);
-  return getchar();
+  scanf("%c%c", &option, &terminator);
+  return terminator == '\n' ? option : '\0';
 }
 
 int main(void)
