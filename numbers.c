@@ -12,9 +12,9 @@
 (h) remove first occurrence of a number\n\
 (i) remove all occurrences of a number\n\
 (j) clear the whole list\n\
+(k) check if a number exists in the list\n\
 (l) display the list of numbers\n\
 (m) exit\n\nPlease enter the alphabet of the operation you would like to perform\n"
-// (k) check if a number exists in the list\n\
 
 #define FAILED printf("Operation Not Successful wrong input or memory exhausted\n")
 #define ADDED printf("Element successfully added\n");
@@ -22,6 +22,7 @@
 #define WRONG_OP printf("Invalid Option\n")
 
 int get_user_in(char[]);
+void check_if_present(List_ptr);
 void remove_occurrences(List_ptr, Status (*)());
 void remove_element_from(List_ptr);
 void add_element_at(List_ptr);
@@ -37,6 +38,20 @@ int get_user_in(char message[])
   fflush(stdin);
   scanf("%d", &user_in);
   return user_in;
+}
+
+void check_if_present(List_ptr list)
+{
+  int number = get_user_in("Please enter the number you want to find");
+  Status stat = has_element(list, number);
+
+  if (stat != 0)
+  {
+    printf("Element is not present in the list\n");
+    return;
+  }
+
+  printf("Element is present in the list\n");
 }
 
 void remove_occurrences(List_ptr list, Status (*remover)(List_ptr, int))
@@ -152,6 +167,10 @@ void perform_operation(List_ptr list, char opcode)
   case 'j':
     clear_list(list);
     printf("List Cleared\n");
+    break;
+
+  case 'k':
+    check_if_present(list);
     break;
 
   case 'l':

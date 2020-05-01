@@ -173,6 +173,21 @@ Status remove_from_end(List_ptr list)
   return remove_at(list, (list->count - 1));
 }
 
+Status has_element(List_ptr list, int number)
+{
+  Node_ptr walker = list->head;
+  while (walker != NULL)
+  {
+    if (walker->value == number)
+    {
+      return Success;
+    }
+    walker = walker->next;
+  }
+
+  return Failure;
+}
+
 Status remove_first_occurrence(List_ptr list, int number)
 {
   Node_ptr walker = list->head;

@@ -43,10 +43,11 @@ Status remove_from_start(List_ptr);
 Status remove_at(List_ptr, int);
 Status remove_from_end(List_ptr);
 
-Status remove_first_occurrence(List_ptr, int value);
-Status remove_all_occurrences(List_ptr, int value);
+Status has_element(List_ptr, int);
+Status remove_first_occurrence(List_ptr, int);
+Status remove_all_occurrences(List_ptr, int);
 
-Status clear_list(List_ptr); // Removes all elements in the list
-void destroy_list(List_ptr); // Frees the elements and the list structure from memory
+Status clear_list(List_ptr);
+void destroy_list(List_ptr);
 
 #endif
