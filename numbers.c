@@ -11,7 +11,7 @@ void remove_occurrences(List_ptr, Status (*)());
 void remove_element_from(List_ptr);
 void add_element_at(List_ptr);
 void remove_element(List_ptr, Status (*)());
-void push_element(List_ptr, Status (*)());
+void add_element(List_ptr, Status (*)());
 void perform_operation(List_ptr, char);
 char get_user_option(void);
 
