@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include "list.h"
 
-#define FAILED printf("Operation Not Successful wrong input or memory exhausted\n")
-#define ADDED printf("Element successfully added\n");
-#define REMOVED printf("Element successfully removed\n");
-#define WRONG_OP printf("Invalid Option\n")
-
 void print_menu(void);
+void print_success(char[]);
+void print_failure(void);
 int get_user_in(char[]);
 void check_if_present(List_ptr);
 void remove_occurrences(List_ptr, Status (*)());
@@ -35,6 +32,16 @@ void print_menu(void)
   printf("(l) display the list of numbers\n");
   printf("(m) exit\n\nPlease enter the alphabet of the operation you would like to perform\n");
   NEW_LINE;
+}
+
+void print_success(char action[])
+{
+  printf("Element successfully %s\n", action);
+}
+
+void print_failure(void)
+{
+  printf("Operation Not Successful wrong input or memory exhausted\n");
 }
 
 int get_user_in(char message[])
@@ -67,11 +74,11 @@ void remove_occurrences(List_ptr list, Status (*remover)(List_ptr, int))
 
   if (stat != 0)
   {
-    FAILED;
+    print_failure();
     return;
   }
 
-  REMOVED;
+  print_success("removed");
 }
 
 void remove_element_from(List_ptr list)
@@ -81,11 +88,11 @@ void remove_element_from(List_ptr list)
 
   if (stat != 0)
   {
-    FAILED;
+    print_failure();
     return;
   }
 
-  REMOVED;
+  print_success("removed");
 }
 
 void add_element_at(List_ptr list)
@@ -96,11 +103,11 @@ void add_element_at(List_ptr list)
 
   if (stat != 0)
   {
-    FAILED;
+    print_failure();
     return;
   }
 
-  ADDED;
+  print_success("added");
 }
 
 void remove_element(List_ptr list, Status (*remover)(List_ptr))
@@ -109,11 +116,11 @@ void remove_element(List_ptr list, Status (*remover)(List_ptr))
 
   if (stat != 0)
   {
-    FAILED;
+    print_failure();
     return;
   }
 
-  REMOVED;
+  print_success("removed");
 }
 
 void add_element(List_ptr list, Status (*adder)(List_ptr, int))
@@ -123,11 +130,11 @@ void add_element(List_ptr list, Status (*adder)(List_ptr, int))
 
   if (stat != 0)
   {
-    FAILED;
+    print_failure();
     return;
   }
 
-  ADDED;
+  print_success("added");
 }
 
 void perform_operation(List_ptr list, char opcode)
@@ -184,7 +191,7 @@ void perform_operation(List_ptr list, char opcode)
     break;
 
   default:
-    WRONG_OP;
+    printf("Invalid Option\n");
     break;
   }
 }
