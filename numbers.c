@@ -4,6 +4,7 @@
 void print_menu(void);
 void print_success(char[]);
 void print_failure(char[]);
+void print_status(Status, char[], char[]);
 int get_user_in(char[]);
 void check_if_present(List_ptr);
 void remove_occurrences(List_ptr, Status (*)());
@@ -44,6 +45,16 @@ void print_failure(char action[])
   printf("Could not %s element. Wrong input or memory exhausted\n", action);
 }
 
+void print_status(Status stat, char on_success[], char on_failure[])
+{
+  if (stat != 0)
+  {
+    print_failure(on_failure);
+    return;
+  }
+  print_success(on_success);
+}
+
 int get_user_in(char message[])
 {
   int user_in;
@@ -71,28 +82,14 @@ void remove_occurrences(List_ptr list, Status (*remover)(List_ptr, int))
 {
   int number = get_user_in("Please enter the number you want to remove");
   Status stat = remover(list, number);
-
-  if (stat != 0)
-  {
-    print_failure("remove");
-    return;
-  }
-
-  print_success("removed");
+  print_status(stat, "removed", "remove");
 }
 
 void remove_element_from(List_ptr list)
 {
   int position = get_user_in("Please enter the position you want to remove the element from");
   Status stat = remove_at(list, position);
-
-  if (stat != 0)
-  {
-    print_failure("remove");
-    return;
-  }
-
-  print_success("removed");
+  print_status(stat, "removed", "remove");
 }
 
 void add_element_at(List_ptr list)
@@ -100,41 +97,20 @@ void add_element_at(List_ptr list)
   int value = get_user_in("Please enter the element you want to add");
   int position = get_user_in("Please enter the position you want to add the element at");
   Status stat = insert_at(list, value, position);
-
-  if (stat != 0)
-  {
-    print_failure("add");
-    return;
-  }
-
-  print_success("added");
+  print_status(stat, "added", "add");
 }
 
 void remove_element(List_ptr list, Status (*remover)(List_ptr))
 {
   Status stat = remover(list);
-
-  if (stat != 0)
-  {
-    print_failure("remove");
-    return;
-  }
-
-  print_success("removed");
+  print_status(stat, "removed", "remove");
 }
 
 void add_element(List_ptr list, Status (*adder)(List_ptr, int))
 {
   int element = get_user_in("Please enter the element to add");
   Status stat = adder(list, element);
-
-  if (stat != 0)
-  {
-    print_failure("add");
-    return;
-  }
-
-  print_success("added");
+  print_status(stat, "added", "add");
 }
 
 void perform_operation(List_ptr list, char opcode)
