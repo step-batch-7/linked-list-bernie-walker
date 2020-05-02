@@ -68,14 +68,7 @@ void check_if_present(List_ptr list)
 {
   int number = get_user_in("Please enter the number you want to find");
   Status stat = has_element(list, number);
-
-  if (stat != 0)
-  {
-    printf("Element is not present in the list\n");
-    return;
-  }
-
-  printf("Element is present in the list\n");
+  print_status(stat, "located on the list", "find");
 }
 
 void remove_occurrences(List_ptr list, Status (*remover)(List_ptr, int))
