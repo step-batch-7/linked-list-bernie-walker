@@ -3,7 +3,7 @@
 
 void print_menu(void);
 void print_success(char[]);
-void print_failure(void);
+void print_failure(char[]);
 int get_user_in(char[]);
 void check_if_present(List_ptr);
 void remove_occurrences(List_ptr, Status (*)());
@@ -39,9 +39,9 @@ void print_success(char action[])
   printf("Element successfully %s\n", action);
 }
 
-void print_failure(void)
+void print_failure(char action[])
 {
-  printf("Operation Not Successful wrong input or memory exhausted\n");
+  printf("Could not %s element. Wrong input or memory exhausted\n", action);
 }
 
 int get_user_in(char message[])
@@ -74,7 +74,7 @@ void remove_occurrences(List_ptr list, Status (*remover)(List_ptr, int))
 
   if (stat != 0)
   {
-    print_failure();
+    print_failure("remove");
     return;
   }
 
@@ -88,7 +88,7 @@ void remove_element_from(List_ptr list)
 
   if (stat != 0)
   {
-    print_failure();
+    print_failure("remove");
     return;
   }
 
@@ -103,7 +103,7 @@ void add_element_at(List_ptr list)
 
   if (stat != 0)
   {
-    print_failure();
+    print_failure("add");
     return;
   }
 
@@ -116,7 +116,7 @@ void remove_element(List_ptr list, Status (*remover)(List_ptr))
 
   if (stat != 0)
   {
-    print_failure();
+    print_failure("remove");
     return;
   }
 
@@ -130,7 +130,7 @@ void add_element(List_ptr list, Status (*adder)(List_ptr, int))
 
   if (stat != 0)
   {
-    print_failure();
+    print_failure("add");
     return;
   }
 
