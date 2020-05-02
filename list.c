@@ -56,29 +56,6 @@ void display(List_ptr list)
   NEW_LINE;
 }
 
-Status add_to_end(List_ptr list, int value)
-{
-  Node_ptr new_node = create_node(value);
-
-  if (new_node == NULL)
-  {
-    return Failure;
-  }
-
-  if (list->count == 0)
-  {
-    list->head = new_node;
-  }
-  else
-  {
-    list->last->next = new_node;
-  }
-
-  list->last = new_node;
-  ++list->count;
-  return Success;
-}
-
 Status add_to_start(List_ptr list, int value)
 {
   Node_ptr new_node = create_node(value);
@@ -90,6 +67,33 @@ Status add_to_start(List_ptr list, int value)
 
   new_node->next = list->head;
   list->head = new_node;
+  ++list->count;
+
+  if (list->last == NULL)
+  {
+    list->last = list->head;
+  }
+
+  return Success;
+}
+
+Status add_to_end(List_ptr list, int value)
+{
+
+  if (list->head == NULL)
+  {
+    return add_to_start(list, value);
+  }
+
+  Node_ptr new_node = create_node(value);
+
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
+
+  list->last->next = new_node;
+  list->last = new_node;
   ++list->count;
   return Success;
 }
