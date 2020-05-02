@@ -1,26 +1,12 @@
 #include <stdio.h>
 #include "list.h"
 
-#define MENU "Main Menu\n---------\n\
-(a) add a number to the end of the list\n\
-(b) add a number to the start of the list\n\
-(c) insert a number at a given position in the list\n\
-(d) add a unique item on the list at the end (NOTE: item will not be added if it is same as the last element)\n\
-(e) remove a number from the beginning of the list\n\
-(f) remove a number from the end of the list\n\
-(g) remove a number from a given position in the list\n\
-(h) remove first occurrence of a number\n\
-(i) remove all occurrences of a number\n\
-(j) clear the whole list\n\
-(k) check if a number exists in the list\n\
-(l) display the list of numbers\n\
-(m) exit\n\nPlease enter the alphabet of the operation you would like to perform\n"
-
 #define FAILED printf("Operation Not Successful wrong input or memory exhausted\n")
 #define ADDED printf("Element successfully added\n");
 #define REMOVED printf("Element successfully removed\n");
 #define WRONG_OP printf("Invalid Option\n")
 
+void print_menu(void);
 int get_user_in(char[]);
 void check_if_present(List_ptr);
 void remove_occurrences(List_ptr, Status (*)());
@@ -30,6 +16,26 @@ void remove_element(List_ptr, Status (*)());
 void push_element(List_ptr, Status (*)());
 void perform_operation(List_ptr, char);
 char get_user_option(void);
+
+void print_menu(void)
+{
+  NEW_LINE;
+  printf("Main Menu\n---------\n");
+  printf("(a) add a number to the end of the list\n");
+  printf("(b) add a number to the start of the list\n");
+  printf("(c) insert a number at a given position in the list\n");
+  printf("(d) add a unique item on the list at the end (NOTE: item will not be added if it is same as the last element)\n");
+  printf("(e) remove a number from the beginning of the list\n");
+  printf("(f) remove a number from the end of the list\n");
+  printf("(g) remove a number from a given position in the list\n");
+  printf("(h) remove first occurrence of a number\n");
+  printf("(i) remove all occurrences of a number\n");
+  printf("(j) clear the whole list\n");
+  printf("(k) check if a number exists in the list\n");
+  printf("(l) display the list of numbers\n");
+  printf("(m) exit\n\nPlease enter the alphabet of the operation you would like to perform\n");
+  NEW_LINE;
+}
 
 int get_user_in(char message[])
 {
@@ -186,9 +192,7 @@ void perform_operation(List_ptr list, char opcode)
 char get_user_option(void)
 {
   char option, terminator;
-  NEW_LINE;
-  printf("%s", MENU);
-  NEW_LINE;
+  print_menu();
   fflush(stdin);
   scanf("%c%c", &option, &terminator);
   return terminator == '\n' ? option : '\0';
