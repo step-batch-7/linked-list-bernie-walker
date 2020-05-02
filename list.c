@@ -146,7 +146,7 @@ Status remove_from_start(List_ptr list)
   list->head = temp;
   --list->count;
 
-  if (list->count == 0)
+  if (list->head == NULL)
   {
     list->last = NULL;
   }
