@@ -33,6 +33,7 @@ List_ptr create_list(void);
 Node_ptr get_nth_node(List_ptr, int);
 
 void display(List_ptr);
+Status has_element(List_ptr, int);
 
 Status add_to_end(List_ptr, int);
 Status add_to_start(List_ptr, int);
@@ -43,7 +44,6 @@ Status remove_from_start(List_ptr);
 Status remove_at(List_ptr, int);
 Status remove_from_end(List_ptr);
 
-Status has_element(List_ptr, int);
 Status remove_first_occurrence(List_ptr, int);
 Status remove_all_occurrences(List_ptr, int);
 

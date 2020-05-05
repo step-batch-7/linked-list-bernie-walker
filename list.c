@@ -56,6 +56,21 @@ void display(List_ptr list)
   NEW_LINE;
 }
 
+Status has_element(List_ptr list, int number)
+{
+  Node_ptr walker = list->head;
+  while (walker != NULL)
+  {
+    if (walker->value == number)
+    {
+      return Success;
+    }
+    walker = walker->next;
+  }
+
+  return Failure;
+}
+
 Status add_to_start(List_ptr list, int value)
 {
   Node_ptr new_node = create_node(value);
@@ -126,12 +141,13 @@ Status insert_at(List_ptr list, int value, int position)
 
 Status add_unique(List_ptr list, int value)
 {
-  if ((list->last == NULL) || (list->last->value != value))
+  if (has_element(list, value) == Success)
   {
-    return add_to_end(list, value);
+    return Failure;
   }
 
-  return Failure;
+  return add_to_end(list, value);
+  ;
 }
 
 Status remove_from_start(List_ptr list)
@@ -184,21 +200,6 @@ Status remove_at(List_ptr list, int position)
 Status remove_from_end(List_ptr list)
 {
   return remove_at(list, (list->count - 1));
-}
-
-Status has_element(List_ptr list, int number)
-{
-  Node_ptr walker = list->head;
-  while (walker != NULL)
-  {
-    if (walker->value == number)
-    {
-      return Success;
-    }
-    walker = walker->next;
-  }
-
-  return Failure;
 }
 
 Status remove_first_occurrence(List_ptr list, int number)
