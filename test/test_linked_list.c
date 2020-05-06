@@ -42,8 +42,17 @@ void test_add_to_start(void)
   assert_strict_equal("The element should be added to the starting of the list", list->head->value, 7);
 }
 
+void test_has_element(void)
+{
+  List_ptr list = create_list();
+  assert_strict_equal("Should not find the element which does not exist", has_element(list, 1), Failure);
+  add_unique(list, 2);
+  assert_strict_equal("Should not find the element which does not exist", has_element(list, 2), Success);
+}
+
 int main(void)
 {
+  exec_test_suite("has_element", test_has_element);
   exec_test_suite("add_to_start", test_add_to_start);
   exec_test_suite("add_to_end", test_add_to_end);
   exec_test_suite("insert_at", test_insert_at);
