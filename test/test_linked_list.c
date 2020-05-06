@@ -1,6 +1,18 @@
 #include "test.h"
 #include "../list.h"
 
+void test_insert_at(void)
+{
+  List_ptr list = create_list();
+  assert_strict_equal("Should add at a valid postion", insert_at(list, 1, 0), Success);
+  assert_strict_equal("Should add at at the start", list->head->value, 1);
+  insert_at(list, 2, 1);
+  assert_strict_equal("Should add at at the end", list->last->value, 2);
+  insert_at(list, 3, 1);
+  assert_strict_equal("Should add at in the middle", list->head->next->value, 3);
+  assert_strict_equal("Should not add at an invalid postion", insert_at(list, 6, 9), Failure);
+}
+
 void test_add_to_end(void)
 {
   List_ptr list = create_list();
@@ -25,5 +37,6 @@ int main(void)
 {
   exec_test_suite("add_to_start", test_add_to_start);
   exec_test_suite("add_to_end", test_add_to_end);
+  exec_test_suite("insert_at", test_insert_at);
   return 0;
 }
