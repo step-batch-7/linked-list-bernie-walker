@@ -57,5 +57,6 @@ int main(void)
   exec_test_suite("add_to_end", test_add_to_end);
   exec_test_suite("insert_at", test_insert_at);
   exec_test_suite("add_unique", test_add_unique);
+  print_report();
   return 0;
 }
