@@ -1,6 +1,15 @@
 #include "test.h"
 #include "../list.h"
 
+void test_add_unique(void)
+{
+  List_ptr list = create_list();
+  assert_strict_equal("Should add any element to an empty list", add_unique(list, 3), Success);
+  assert_strict_equal("Should add a unique item to the list", add_unique(list, 2), Success);
+  assert_strict_equal("Should not add a non unique item to the list", add_unique(list, 2), Failure);
+  assert_strict_equal("Should add item at the end of the list", list->last->value, 2);
+}
+
 void test_insert_at(void)
 {
   List_ptr list = create_list();
@@ -38,5 +47,6 @@ int main(void)
   exec_test_suite("add_to_start", test_add_to_start);
   exec_test_suite("add_to_end", test_add_to_end);
   exec_test_suite("insert_at", test_insert_at);
+  exec_test_suite("add_unique", test_add_unique);
   return 0;
 }
