@@ -2,7 +2,7 @@
 
 void print_description(char description[])
 {
-  printf("\n\033[1m%s\033[0m\n\n", description);
+  printf("\n%s\n\n", description);
 }
 
 void show_test_values(int actual, int expected)
@@ -12,7 +12,7 @@ void show_test_values(int actual, int expected)
 
 void print_test_status(char assertion_message[], Test_status status)
 {
-  char *mark = status == Passed ? "\033[32m✓\033[0m\033[1;30m" : "\033[31m✗";
+  char *mark = status == Passed ? "\033[32m✓\033[0m\033[90m" : "\033[31m✗";
   printf("    %s %s\n\033[0m", mark, assertion_message);
 }
 
