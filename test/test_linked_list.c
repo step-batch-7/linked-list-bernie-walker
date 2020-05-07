@@ -6,6 +6,20 @@ int is_list_empty(List_ptr list)
   return ((list->head == NULL) && (list->last == NULL)) ? 1 : 0;
 }
 
+void test_remove_at(void)
+{
+  List_ptr list = create_list();
+  assert_strict_equal("Should not remove from the list when a wrong position is given", remove_at(list, 2), Failure);
+  add_unique(list, 1);
+  add_unique(list, 2);
+  add_unique(list, 3);
+  assert_strict_equal("Should not remove from middle of the list", remove_at(list, 1), Success);
+  assert_strict_equal("Should update the count of the list", list->count, 2);
+  assert_strict_equal("Should not remove from the end of the list", remove_at(list, 1), Success);
+  assert_strict_equal("Should not remove from starting of the list", remove_at(list, 0), Success);
+  assert_strict_equal("Both head and last should be NULL after removal of an only element", is_list_empty(list), 1);
+}
+
 void test_remove_from_start(void)
 {
   List_ptr list = create_list();
@@ -80,6 +94,7 @@ int main(void)
   exec_test_suite("insert_at", test_insert_at);
   exec_test_suite("add_unique", test_add_unique);
   exec_test_suite("remove_from_start", test_remove_from_start);
+  exec_test_suite("remove_at", test_remove_at);
   print_report();
   return 0;
 }
