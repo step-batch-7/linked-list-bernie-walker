@@ -6,6 +6,25 @@ int is_list_empty(List_ptr list)
   return ((list->head == NULL) && (list->last == NULL)) ? 1 : 0;
 }
 
+void test_remove_all_occurrences(void)
+{
+  List_ptr list = create_list();
+  add_unique(list, 1);
+  add_unique(list, 2);
+  add_unique(list, 3);
+  insert_at(list, 1, 2);
+  add_to_end(list, 1);
+  assert_strict_equal("Should not remove non existing element from the list", remove_all_occurrences(list, 9), Failure);
+  int isSuccess = remove_all_occurrences(list, 1) ^ Success;
+  int doesHaveElement = has_element(list, 1) ^ Failure;
+  assert_strict_equal("Should remove all the occurrences of an existing element", (isSuccess | doesHaveElement), Success);
+  assert_strict_equal("Should update the head of the list when the first element is removed", list->head->value, 2);
+  assert_strict_equal("Should update the last of the list when the last element is removed", list->last->value, 3);
+  remove_all_occurrences(list, 2);
+  remove_all_occurrences(list, 3);
+  assert_strict_equal("Both head and last should be NULL after removal of an only element", is_list_empty(list), 1);
+}
+
 void test_remove_first_occurrence(void)
 {
   List_ptr list = create_list();
@@ -127,6 +146,7 @@ int main(void)
   exec_test_suite("remove_at", test_remove_at);
   exec_test_suite("remove_from_end", test_remove_from_end);
   exec_test_suite("remove_first_occurrence", test_remove_first_occurrence);
+  exec_test_suite("remove_all_occurrences", test_remove_all_occurrences);
   print_report();
   return 0;
 }
