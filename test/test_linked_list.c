@@ -6,6 +6,36 @@ int is_list_empty(List_ptr list)
   return ((list->head == NULL) && (list->last == NULL)) ? 1 : 0;
 }
 
+void test_remove_first_occurrence(void)
+{
+  List_ptr list = create_list();
+  add_unique(list, 1);
+  add_unique(list, 2);
+  add_to_end(list, 1);
+  assert_strict_equal("Should not remove non existing element", remove_first_occurrence(list, 3), Failure);
+  assert_strict_equal("Should remove the first occurrence existing element", remove_first_occurrence(list, 1), Success);
+  assert_strict_equal("Should update the count of the list", list->count, 2);
+  assert_strict_equal("Should remove only the first occurrence", list->last->value, 1);
+  assert_strict_equal("Should update the head when removed element was first element", list->head->value, 2);
+  remove_first_occurrence(list, 1);
+  assert_strict_equal("Should update the last when removed element was last element", list->last->value, 2);
+  remove_first_occurrence(list, 2);
+  assert_strict_equal("Both head and last should be NULL after removal of an only element", is_list_empty(list), 1);
+}
+
+void test_remove_from_end(void)
+{
+  List_ptr list = create_list();
+  assert_strict_equal("Should not remove from an empty list", remove_from_end(list), Failure);
+  add_unique(list, 1);
+  add_unique(list, 2);
+  assert_strict_equal("Should remove from the end of a non empty list", remove_from_end(list), Success);
+  assert_strict_equal("Should update the last of the list", list->last->value, 1);
+  assert_strict_equal("Should updated the count of the list", list->count, 1);
+  remove_from_end(list);
+  assert_strict_equal("Both head and last should be NULL after removal of an only element", is_list_empty(list), 1);
+}
+
 void test_remove_at(void)
 {
   List_ptr list = create_list();
@@ -95,6 +125,8 @@ int main(void)
   exec_test_suite("add_unique", test_add_unique);
   exec_test_suite("remove_from_start", test_remove_from_start);
   exec_test_suite("remove_at", test_remove_at);
+  exec_test_suite("remove_from_end", test_remove_from_end);
+  exec_test_suite("remove_first_occurrence", test_remove_first_occurrence);
   print_report();
   return 0;
 }
