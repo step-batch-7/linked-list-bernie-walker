@@ -38,7 +38,7 @@ void exec_test_suite(char description[], void (*test_suite)(void))
   test_suite();
 }
 
-void print_report()
+void print_report(void)
 {
   printf("\n  \033[33mTotal %d\033[0m\n", (passing + failing));
   printf("\n  \033[32m%d passing\033[0m", passing);
