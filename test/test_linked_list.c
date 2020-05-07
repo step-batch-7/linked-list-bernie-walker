@@ -1,6 +1,24 @@
 #include "test.h"
 #include "../list.h"
 
+int is_list_empty(List_ptr list)
+{
+  return ((list->head == NULL) && (list->last == NULL)) ? 1 : 0;
+}
+
+void test_remove_from_start(void)
+{
+  List_ptr list = create_list();
+  assert_strict_equal("Should not remove from an empty list", remove_from_start(list), Failure);
+  add_unique(list, 1);
+  add_unique(list, 2);
+  assert_strict_equal("Should remove from the start of a non empty list", remove_from_start(list), Success);
+  assert_strict_equal("Should update the head of the list", list->head->value, 2);
+  assert_strict_equal("Should updated the count of the list", list->count, 1);
+  remove_from_start(list);
+  assert_strict_equal("Both head and last should be NULL after removal of an only element", is_list_empty(list), 1);
+}
+
 void test_add_unique(void)
 {
   List_ptr list = create_list();
@@ -14,11 +32,11 @@ void test_insert_at(void)
 {
   List_ptr list = create_list();
   assert_strict_equal("Should add at a valid postion", insert_at(list, 1, 0), Success);
-  assert_strict_equal("Should add at at the start", list->head->value, 1);
+  assert_strict_equal("Should add at at the starting of the list", list->head->value, 1);
   insert_at(list, 2, 1);
-  assert_strict_equal("Should add at at the end", list->last->value, 2);
+  assert_strict_equal("Should add at at the end of the list", list->last->value, 2);
   insert_at(list, 3, 1);
-  assert_strict_equal("Should add at in the middle", list->head->next->value, 3);
+  assert_strict_equal("Should add in the middle of the list", list->head->next->value, 3);
   assert_strict_equal("Should not add at an invalid postion", insert_at(list, 6, 9), Failure);
 }
 
@@ -57,6 +75,7 @@ int main(void)
   exec_test_suite("add_to_end", test_add_to_end);
   exec_test_suite("insert_at", test_insert_at);
   exec_test_suite("add_unique", test_add_unique);
+  exec_test_suite("remove_from_start", test_remove_from_start);
   print_report();
   return 0;
 }

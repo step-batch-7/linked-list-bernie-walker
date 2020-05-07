@@ -9,7 +9,7 @@ void print_description(char description[])
 
 void show_test_values(int actual, int expected)
 {
-  printf("\n\t\033[32mExpected: %d\033[0m\t\033[91mActual: %d\033[0m\n\n", actual, expected);
+  printf("\n\t\033[32mExpected: %d\033[0m\t\033[91mActual: %d\033[0m\n\n", expected, actual);
 }
 
 void print_test_status(char assertion_message[], Test_status status)
