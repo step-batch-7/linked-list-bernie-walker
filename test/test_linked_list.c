@@ -6,6 +6,17 @@ int is_list_empty(List_ptr list)
   return ((list->head == NULL) && (list->last == NULL)) ? 1 : 0;
 }
 
+void test_clear_list(void)
+{
+  List_ptr list = create_list();
+  add_unique(list, 1);
+  add_unique(list, 2);
+  add_unique(list, 3);
+  assert_strict_equal("Should clear the list", clear_list(list), Success);
+  assert_strict_equal("The count should be 0 after clearing the list", list->count, 0);
+  assert_strict_equal("Both head and last should be NULL after clearing the list", is_list_empty(list), 1);
+}
+
 void test_remove_all_occurrences(void)
 {
   List_ptr list = create_list();
@@ -147,6 +158,7 @@ int main(void)
   exec_test_suite("remove_from_end", test_remove_from_end);
   exec_test_suite("remove_first_occurrence", test_remove_first_occurrence);
   exec_test_suite("remove_all_occurrences", test_remove_all_occurrences);
+  exec_test_suite("clear_list", test_clear_list);
   print_report();
   return 0;
 }
